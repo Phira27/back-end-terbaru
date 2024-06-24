@@ -1,7 +1,7 @@
 const mqtt = require("mqtt");
 const mysql = require("mysql");
 const express = require("express");
-const router = require("./routes");
+const router = require("./src/routes");
 const cors = require("cors");
 
 const app = express();
