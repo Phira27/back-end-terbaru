@@ -1,24 +1,21 @@
 const mqtt = require("mqtt");
-const mysql = require("mysql");
 const express = require("express");
 const router = require("./src/routes");
 const cors = require("cors");
+const port = 3000;
+const db = require('./src/config/connection');
+const response = require('./src/config/response');
+const pasirianRouter = require('./src/routes/PasirianRoutes')
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
-
+app.use(pasirianRouter);
 // Konfigurasi Broker MQTT
 const MQTT_BROKER = "mqtt://test.mosquitto.org";
 const MQTT_TOPIC = "tugasakhir/lumajang"; 
-
-// Konfigurasi Database MySQL
-const DB_HOST = "localhost";
-const DB_USER = "root";
-const DB_PASSWORD = "";
-const DB_DATABASE = "tugas_akhir";
 
 // Buat koneksi ke broker MQTT
 client = mqtt.connect({
@@ -26,14 +23,6 @@ client = mqtt.connect({
   port: 1883,
   username: 'uwais',
   password: 'uw415_4Lqarn1'
-});
-
-// Buat koneksi ke database MySQL
-const dbConnection = mysql.createConnection({
-  host: DB_HOST,
-  user: DB_USER,
-  password: DB_PASSWORD,
-  database: DB_DATABASE,
 });
 
 // Fungsi untuk menghitung ISPU
@@ -119,7 +108,7 @@ client.on("message", (topic,  message) => {
     const category_average = getISPUCategory(ispu_average);
 
     const query =
-      "INSERT INTO datas (temperature, humidity, NO2_concentration, PM10_concentration, PM25_concentration, ispu_no2, ispu_pm10, ispu_pm25, ispu_average, category_no2, category_pm10, category_pm25, category_average, time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      "INSERT INTO lumajang (temperature, humidity, NO2_concentration, PM10_concentration, PM25_concentration, ispu_no2, ispu_pm10, ispu_pm25, ispu_average, category_no2, category_pm10, category_pm25, category_average, time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     const values = [
       data.temperature,
       data.humidity,
@@ -137,7 +126,7 @@ client.on("message", (topic,  message) => {
       new Date(),
     ];
 
-    dbConnection.query(query, values, (error, results) => {
+    db.query(query, values, (error, results) => {
       if (error) {
         console.error("Gagal menyimpan data ke database:", error);
       } else {
@@ -147,28 +136,7 @@ client.on("message", (topic,  message) => {
   }
 });
 
-// Tangani event koneksi ke database MySQL
-dbConnection.connect((error) => {
-  if (error) {
-    console.error("Gagal terhubung ke database:", error);
-    process.exit(1); // Keluar dari aplikasi jika gagal terhubung
-  } else {
-    console.log("Terhubung ke database MySQL");
-  }
-});
 
-app.get("/data/airquality", (req, res) => {
-  const query = "SELECT * FROM datas";
-
-  dbConnection.query(query, (error, result) => {
-    if (error) {
-      throw error;
-    } else {
-      res.send({ data: result });
-    }
-  });
-});
-
-app.listen(3000, () => {
-  console.log(`Server is running on port 3000!`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
