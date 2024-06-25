@@ -2,7 +2,7 @@ const db = require('../config/connectionDB')
 const ErrorResponse = require('../utils/ErrorResponse')
 const { responseData, responseMessage } = require('../utils/responHandler')
 
-exports.insertPasirian = (response, statement, data, next) => {
+exports.insertSenduro = (response, statement, data, next) => {
     db.query(statement, data, (err, rows, fields) =>{
         if(err) {
             return next(new ErrorResponse(err.message, 500))
@@ -11,7 +11,7 @@ exports.insertPasirian = (response, statement, data, next) => {
     })
 }
 
-exports.getPasirian = (response, statement) => {
+exports.getSenduro = (response, statement) => {
     db.query(statement, (err, rows, fields) =>{
         if(err){
             return response.status(500).json({

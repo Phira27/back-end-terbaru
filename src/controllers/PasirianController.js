@@ -1,7 +1,30 @@
-const {getPasirian} = require('./../models/pasirianModel')
+const ErrorResponse = require('../utils/ErrorResponse');
+const { validatePasirian } = require('../utils/validation');
+const { getPasirian, insertPasirian } = require('./../models/pasirianModel');
 
-exports.readData = (req, res) => {
-    const querySql = 'SELECT * FROM Lumajang';
+exports.createData = (req, res, next) => {
+    // Menyalin data dari body request dan menambahkan waktu saat ini
+    const data = { ...req.body };
+    data.time = new Date();
 
-    getPasirian(res, querySql)
-}
+    // Query SQL untuk menyisipkan data ke tabel pasirian
+    const querySql = 'INSERT INTO pasirian SET ?';
+
+    // Memvalidasi data menggunakan fungsi validatePasirian
+    const errors = validatePasirian(data);
+    if (errors) {
+        // Mengirimkan respons error jika ada kesalahan validasi
+        return next(new ErrorResponse(errors[0], 400));
+    }
+
+    // Memasukkan data ke dalam basis data menggunakan fungsi insertPasirian
+    insertPasirian(res, querySql, data, next);
+};
+
+exports.readData = (req, res, next) => {
+    // Query SQL untuk mengambil semua data dari tabel pasirian
+    const querySql = 'SELECT * FROM pasirian';
+
+    // Mengambil data dari basis data menggunakan fungsi getPasirian
+    getPasirian(res, querySql, next);
+};

@@ -1,7 +1,7 @@
-const {readData} = require('./../controllers/PasirianController')
+const {readData, createData} = require('./../controllers/PasirianController')
 const express = require('express');
 const router = express.Router();
 
-router.route('/pasirian').get(readData)
+router.route('/pasirian').post(createData).get(readData)
 
 module.exports = router;
