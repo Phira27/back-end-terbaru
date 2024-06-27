@@ -1,6 +1,6 @@
 const ErrorResponse = require('../utils/ErrorResponse');
 const { validateSenduro } = require('../utils/validation');
-const { getSenduro, insertSenduro } = require('./../models/senduroModel');
+const { getSenduro, insertSenduro, getSenduroTerbaru } = require('./../models/senduroModel');
 
 exports.createData = (req, res, next) => {
     // Menyalin data dari body request dan menambahkan waktu saat ini
@@ -21,10 +21,16 @@ exports.createData = (req, res, next) => {
     insertSenduro(res, querySql, data, next);
 };
 
+
 exports.readData = (req, res, next) => {
     // Query SQL untuk mengambil semua data dari tabel senduro
     const querySql = 'SELECT * FROM senduro';
 
     // Mengambil data dari basis data menggunakan fungsi getsenduro
     getSenduro(res, querySql, next);
+};
+exports.senduroTerbaru = (req, res, next) => {
+    const querySql = 'SELECT * FROM senduro ORDER BY time DESC LIMIT 1';
+
+    getSenduroTerbaru(res, querySql, next);
 };

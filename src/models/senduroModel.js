@@ -11,7 +11,20 @@ exports.insertSenduro = (response, statement, data, next) => {
     })
 }
 
+
 exports.getSenduro = (response, statement) => {
+    db.query(statement, (err, rows, fields) =>{
+        if(err){
+            return response.status(500).json({
+                message: 'Ada kesalahan server', 
+                error: err
+            })
+        }
+        responseData(response, 200, rows)
+    })
+}
+
+exports.getSenduroTerbaru = (response, statement) => {
     db.query(statement, (err, rows, fields) =>{
         if(err){
             return response.status(500).json({

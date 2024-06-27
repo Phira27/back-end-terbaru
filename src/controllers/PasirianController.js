@@ -1,6 +1,6 @@
 const ErrorResponse = require('../utils/ErrorResponse');
 const { validatePasirian } = require('../utils/validation');
-const { getPasirian, insertPasirian } = require('./../models/pasirianModel');
+const { getPasirian, insertPasirian, getPasirianTerbaru } = require('./../models/pasirianModel');
 
 exports.createData = (req, res, next) => {
     // Menyalin data dari body request dan menambahkan waktu saat ini
@@ -27,4 +27,10 @@ exports.readData = (req, res, next) => {
 
     // Mengambil data dari basis data menggunakan fungsi getPasirian
     getPasirian(res, querySql, next);
+};
+
+exports.pasirianTerbaru = (req, res, next) => {
+    const querySql = 'SELECT * FROM pasirian ORDER BY time DESC LIMIT 1';
+
+    getPasirianTerbaru(res, querySql, next);
 };

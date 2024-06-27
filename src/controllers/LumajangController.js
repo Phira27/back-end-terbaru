@@ -1,4 +1,4 @@
-const { insertLumajang, getLumajang } = require('../models/lumajangModel');
+const { insertLumajang, getLumajang, getLumajangTerbaru } = require('../models/lumajangModel');
 const ErrorResponse = require('../utils/ErrorResponse');
 const {  validateLumajang } = require('../utils/validation');
 
@@ -27,4 +27,10 @@ exports.readData = (req, res, next) => {
 
     // Mengambil data dari basis data menggunakan fungsi getlumajang
     getLumajang(res, querySql, next);
+};
+
+exports.lumajangTerbaru = (req, res, next) => {
+    const querySql = 'SELECT * FROM lumajang ORDER BY time DESC LIMIT 1';
+
+    getLumajangTerbaru(res, querySql, next);
 };
