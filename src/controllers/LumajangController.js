@@ -13,7 +13,7 @@ exports.createData = (req, res, next) => {
     // Memvalidasi data menggunakan fungsi validatelumajang
     const errors = validateLumajang(data);
     if (errors) {
-        // Mengirimkan respons error jika ada kesalahan validasi
+    // Mengirimkan respons error jika ada kesalahan validasi
         return next(new ErrorResponse(errors[0], 400));
     }
 
@@ -22,8 +22,20 @@ exports.createData = (req, res, next) => {
 };
 
 exports.readData = (req, res, next) => {
-    // Query SQL untuk mengambil semua data dari tabel lumajang
-    const querySql = 'SELECT * FROM lumajang';
+    // Query SQL untuk mengambil data agregat dari tabel lumajang
+    const querySql = `
+        SELECT 
+            DATE(time) as tanggal,
+            ROUND(AVG(temperature), 2) as rata_temperature,
+            ROUND(AVG(humidity), 2) as rata_humidity,
+            ROUND(AVG(NO2_concentration), 2) as rata_NO2_concentration,
+            ROUND(AVG(PM10_concentration), 2) as rata_PM10_concentration,
+            ROUND(AVG(PM25_concentration), 2) as rata_PM25_concentration,
+             MAX(category_average) as modus_average
+        FROM lumajang
+        GROUP BY 
+            DATE(time)
+    `;
 
     // Mengambil data dari basis data menggunakan fungsi getlumajang
     getLumajang(res, querySql, next);

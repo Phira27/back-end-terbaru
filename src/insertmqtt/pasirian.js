@@ -31,7 +31,7 @@ class Pasirian {
 
   saveToDatabase(data, ispuResults) {
     const query =
-      "INSERT INTO senduro (temperature, humidity, NO2_concentration, PM10_concentration, PM25_concentration, ispu_no2, ispu_pm10, ispu_pm25, ispu_average, category_no2, category_pm10, category_pm25, category_average, time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      "INSERT INTO pasirian (temperature, humidity, NO2_concentration, PM10_concentration, PM25_concentration, ispu_no2, ispu_pm10, ispu_pm25, ispu_average, category_no2, category_pm10, category_pm25, category_average, time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     const values = [
       data.temperature,
       data.humidity,

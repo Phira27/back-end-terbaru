@@ -23,7 +23,19 @@ exports.createData = (req, res, next) => {
 
 exports.readData = (req, res, next) => {
     // Query SQL untuk mengambil semua data dari tabel pasirian
-    const querySql = 'SELECT * FROM pasirian';
+    const querySql = `
+        SELECT 
+            DATE(time) as tanggal,
+            ROUND(AVG(temperature), 2) as rata_temperature,
+            ROUND(AVG(humidity), 2) as rata_humidity,
+            ROUND(AVG(NO2_concentration), 2) as rata_NO2_concentration,
+            ROUND(AVG(PM10_concentration), 2) as rata_PM10_concentration,
+            ROUND(AVG(PM25_concentration), 2) as rata_PM25_concentration,
+             MAX(category_average) as modus_average
+        FROM pasirian
+        GROUP BY 
+            DATE(time)
+    `;
 
     // Mengambil data dari basis data menggunakan fungsi getPasirian
     getPasirian(res, querySql, next);
