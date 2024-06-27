@@ -42,7 +42,7 @@ exports.readData = (req, res, next) => {
     getSenduro(res, querySql, next);
 };
 exports.senduroTerbaru = (req, res, next) => {
-    const querySql = 'SELECT * FROM senduro ORDER BY time DESC LIMIT 1';
+    const querySql = 'SELECT * FROM senduro ORDER BY time DESC LIMIT 5';
 
     getSenduroTerbaru(res, querySql, next);
 };

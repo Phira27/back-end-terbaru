@@ -42,7 +42,7 @@ exports.readData = (req, res, next) => {
 };
 
 exports.pasirianTerbaru = (req, res, next) => {
-    const querySql = 'SELECT * FROM pasirian ORDER BY time DESC LIMIT 1';
+    const querySql = 'SELECT * FROM pasirian ORDER BY time DESC LIMIT 5';
 
     getPasirianTerbaru(res, querySql, next);
 };

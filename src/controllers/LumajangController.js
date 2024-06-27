@@ -22,7 +22,7 @@ exports.createData = (req, res, next) => {
 };
 
 exports.readData = (req, res, next) => {
-    // Query SQL untuk mengambil data agregat dari tabel lumajang
+    // Query SQL untuk mengambil data rata-rata dari tabel lumajang
     const querySql = `
         SELECT 
             DATE(time) as tanggal,
@@ -42,7 +42,8 @@ exports.readData = (req, res, next) => {
 };
 
 exports.lumajangTerbaru = (req, res, next) => {
-    const querySql = 'SELECT * FROM lumajang ORDER BY time DESC LIMIT 1';
+    const querySql = 'SELECT * FROM lumajang ORDER BY time DESC LIMIT 5';
 
     getLumajangTerbaru(res, querySql, next);
 };
+
