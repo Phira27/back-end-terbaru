@@ -19,7 +19,8 @@
     "parser": "^0.1.4",
     "sequelize": "^6.37.1",
     "sequelize-cli": "^6.6.2",
-    "validate.js": "^0.13.1"
+    "validate.js": "^0.13.1",
+    "vercel": "^34.2.8"
   },
   "description": ""
 }
