@@ -1,10 +1,10 @@
 const mysql = require("mysql");
 
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "tugas_akhir",
+  host: "bfz7qifvuoem3s9dqhpp-mysql.services.clever-cloud.com",
+  user: "uihzvl73ald3hjhy",
+  password: "gPOUeautE9VLYSkybVHT",
+  database: "bfz7qifvuoem3s9dqhpp",
 });
 
 // Tangani event koneksi ke database MySQL
