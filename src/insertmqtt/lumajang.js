@@ -1,4 +1,4 @@
-const { MQTT_TOPIC, createMQTTClient } = require('../config/connectionMQTT');
+const { MQTT_TOPIC1, createMQTTClient } = require('../config/connectionMQTT');
 const { calculateAllISPU } = require('../utils/ispuCal');
 const db = require('../config/connectionDB'); // Pastikan Anda memiliki modul database
 
@@ -10,8 +10,8 @@ class Lumajang {
 
   setupMQTTListeners() {
     this.mqttClient.on("connect", () => {
-      console.log("Terhubung ke broker MQTT");
-      this.mqttClient.subscribe(MQTT_TOPIC);
+      console.log("Terhubung ke broker MQTT Lumajang");
+      this.mqttClient.subscribe(MQTT_TOPIC1);
     });
 
     this.mqttClient.on("message", (topic, message) => {
@@ -20,7 +20,7 @@ class Lumajang {
   }
 
   handleMessage(topic, message) {
-    if (topic === MQTT_TOPIC) {
+    if (topic === MQTT_TOPIC1) {
       const data = JSON.parse(message.toString());
       console.log("Data diterima:", data);
 

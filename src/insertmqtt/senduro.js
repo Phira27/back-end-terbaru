@@ -1,4 +1,4 @@
-const { MQTT_TOPIC, createMQTTClient } = require('../config/connectionMQTT');
+const { MQTT_TOPIC3, createMQTTClient } = require('../config/connectionMQTT');
 const { calculateAllISPU } = require('../utils/ispuCal');
 const db = require('../config/connectionDB'); // Pastikan Anda memiliki modul database
 
@@ -10,8 +10,8 @@ class Senduro {
 
   setupMQTTListeners() {
     this.mqttClient.on("connect", () => {
-      console.log("Terhubung ke broker MQTT");
-      this.mqttClient.subscribe(MQTT_TOPIC);
+      console.log("Terhubung ke broker MQTT Senduro");
+      this.mqttClient.subscribe(MQTT_TOPIC3);
     });
 
     this.mqttClient.on("message", (topic, message) => {
@@ -20,7 +20,7 @@ class Senduro {
   }
 
   handleMessage(topic, message) {
-    if (topic === MQTT_TOPIC) {
+    if (topic === MQTT_TOPIC3) {
       const data = JSON.parse(message.toString());
       console.log("Data diterima:", data);
 
@@ -53,7 +53,7 @@ class Senduro {
       if (error) {
         console.error("Gagal menyimpan data ke database:", error);
       } else {
-        console.log("Jumlah baris yang dimasukkan:", results.affectedRows);
+        console.log("Jumlah baris yang dimasukkan:", results.affectedRows, "Ke Tabel Senduro");
       }
     });
   }
