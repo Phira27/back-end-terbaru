@@ -1,20 +1,23 @@
+require('dotenv').config();
 const mysql = require("mysql");
 
-const db = mysql.createConnection({
-  host: "bfz7qifvuoem3s9dqhpp-mysql.services.clever-cloud.com",
-  user: "uihzvl73ald3hjhy",
-  password: "gPOUeautE9VLYSkybVHT",
-  database: "bfz7qifvuoem3s9dqhpp",
-});
-
-// Tangani event koneksi ke database MySQL
-db.connect((error) => {
-  if (error) {
-    console.error("Gagal terhubung ke database:", error);
-    process.exit(1); // Keluar dari aplikasi jika gagal terhubung
-  } else {
-    console.log("Terhubung ke database MySQL");
-  }
-});
-
-module.exports = db;
+  const pool = mysql.createPool({
+    connectionLimit: 10,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+  });
+  
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.error("Gagal terhubung ke database:", err);
+      process.exit(1);
+    } else {
+      console.log("Terhubung ke database MySQL");
+      connection.release(); // Release the connection back to the pool
+    }
+  });
+  
+  module.exports = pool;
+  

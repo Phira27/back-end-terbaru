@@ -1,7 +1,6 @@
 const mqtt = require("mqtt");
 
 // MQTT Configuration
-const MQTT_BROKER = "mqtt://test.mosquitto.org";
 const MQTT_TOPIC1 = "tugasakhir/lumajang";
 const MQTT_TOPIC2 = "tugasakhir/pasirian";
 const MQTT_TOPIC3 = "tugasakhir/senduro";
