@@ -8,7 +8,7 @@ const senduroRouter = require('./src/routes/SenduroRoutes');
 const Senduro = require('./src/insertmqtt/senduro');
 const Lumajang = require('./src/insertmqtt/lumajang');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
