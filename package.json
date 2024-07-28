@@ -20,11 +20,9 @@
     "mysql2": "^3.9.2",
     "node": "^20.16.0",
     "nodemon": "^3.1.0",
-    "parser": "^0.1.4",
     "sequelize": "^6.37.1",
     "sequelize-cli": "^6.6.2",
-    "validate.js": "^0.13.1",
-    "vercel": "^34.2.8"
+    "validate.js": "^0.13.1"
   },
   "description": ""
 }
