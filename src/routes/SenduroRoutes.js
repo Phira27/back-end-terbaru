@@ -2,8 +2,8 @@ const {readData, createData, senduroTerbaru} = require('./../controllers/Senduro
 const express = require('express');
 const router = express.Router();
 
-router.route('/senduro').post(createData).get(readData)
-router.route('/senduro/terbaru').get(senduroTerbaru)
+router.route('./senduro').post(createData).get(readData)
+router.route('./senduro/terbaru').get(senduroTerbaru)
 
 
 module.exports = router;

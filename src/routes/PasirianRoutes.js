@@ -2,6 +2,6 @@ const {readData, createData, pasirianTerbaru} = require('./../controllers/Pasiri
 const express = require('express');
 const router = express.Router();
 
-router.route('/pasirian').post(createData).get(readData)
-router.route('/pasirian/terbaru').get(pasirianTerbaru)
+router.route('./pasirian').post(createData).get(readData)
+router.route('./pasirian/terbaru').get(pasirianTerbaru)
 module.exports = router;
